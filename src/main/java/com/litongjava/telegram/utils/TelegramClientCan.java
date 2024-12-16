@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.CreateChatInviteLink;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.LeaveChat;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -57,6 +58,14 @@ public class TelegramClientCan {
   public static void execute(DeleteMessage input) {
     try {
       main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException("Failed to send message:", e);
+    }
+  }
+
+  public static Boolean execute(LeaveChat input) {
+    try {
+      return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException("Failed to send message:", e);
     }
