@@ -25,4 +25,11 @@ public class SendMessageUtils {
         //
         .parseMode(ParseMode.HTML).disableWebPagePreview(true).build();
   }
+
+  public static SendMessage markdown(Long chatId, String content) {
+    SendMessage sendMessage = new SendMessage(chatId.toString(), content);
+    sendMessage.setParseMode(ParseMode.MARKDOWN);
+    sendMessage.setDisableWebPagePreview(true);
+    return sendMessage;
+  }
 }
