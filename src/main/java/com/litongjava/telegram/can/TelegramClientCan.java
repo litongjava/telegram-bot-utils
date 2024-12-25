@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.send.SendVideo;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessages;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.ChatInviteLink;
 import org.telegram.telegrambots.meta.api.objects.MessageId;
@@ -85,6 +86,14 @@ public class TelegramClientCan {
     return TelegramClientCan.execute(deleteMessage);
   }
 
+  public static Boolean execute(DeleteMessages input) {
+    try {
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException("Failed to send message:", e);
+    }
+  }
+
   public static Boolean execute(LeaveChat input) {
     try {
       return main.execute(input);
@@ -147,7 +156,7 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException("Failed to send message:", e);
-    }    
+    }
   }
 
   public static ArrayList<MessageId> execute(CopyMessages input) {
@@ -155,7 +164,7 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException("Failed to send message:", e);
-    }        
+    }
   }
 
   public static List<Message> execute(SendMediaGroup input) {
@@ -163,6 +172,7 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException("Failed to send message:", e);
-    }      
+    }
   }
+
 }
