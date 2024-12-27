@@ -11,4 +11,13 @@ public class InlineKeyboardButtonUtils {
     return keyboardButton;
   }
 
+  public static InlineKeyboardButton callback(String text, String callbackData) {
+    InlineKeyboardButton keyboardButton = InlineKeyboardButton.builder()
+        //
+        .callbackData(callbackData)
+        //
+        .text(text).build();  
+    return keyboardButton;
+  }
+
 }

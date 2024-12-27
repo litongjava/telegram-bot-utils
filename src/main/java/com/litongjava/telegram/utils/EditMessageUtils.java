@@ -15,7 +15,7 @@ public class EditMessageUtils {
         .build();
     return editMessage;
   }
-  
+
   public static EditMessageText html(String chatId, Integer messageId, String messageText) {
     EditMessageText editMessage = EditMessageText.builder()//
         .chatId(chatId).messageId(messageId).text(messageText)
@@ -25,7 +25,7 @@ public class EditMessageUtils {
         .build();
     return editMessage;
   }
-  
+
   public static EditMessageText html(Long chatId, Integer messageId, String messageText) {
     EditMessageText editMessage = EditMessageText.builder()//
         .chatId(chatId).messageId(messageId).text(messageText)
@@ -33,6 +33,12 @@ public class EditMessageUtils {
         .parseMode(ParseMode.HTML).disableWebPagePreview(true)
         //
         .build();
+    return editMessage;
+  }
+
+  public static EditMessageText text(String chatId, int messageId, String text) {
+    EditMessageText editMessage = EditMessageText.builder()//
+        .chatId(chatId).messageId(messageId).text(text).build();
     return editMessage;
   }
 

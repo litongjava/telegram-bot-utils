@@ -12,6 +12,12 @@ public class SendMessageUtils {
     return sendMessage;
   }
   
+  public static SendMessage text(String chatId, String content) {
+    SendMessage sendMessage = new SendMessage(chatId, content);
+    sendMessage.setDisableWebPagePreview(true);
+    return sendMessage;
+  }
+  
   public static SendMessage html(String chatId, String content) {
     SendMessage sendMessage = new SendMessage(chatId, content);
     sendMessage.setParseMode(ParseMode.HTML);
