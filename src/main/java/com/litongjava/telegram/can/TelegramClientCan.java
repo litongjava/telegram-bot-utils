@@ -32,22 +32,22 @@ public class TelegramClientCan {
 
   public static TelegramClient main;
 
-  public static Message execute(SendMessage send) {
+  public static Message execute(SendMessage input) {
     try {
       // 通过TelegramClient执行发送消息请求
-      Message message = main.execute(send);
+      Message message = main.execute(input);
       return message;
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
-  public static Serializable execute(EditMessageText send) {
+  public static Serializable execute(EditMessageText input) {
     try {
       // 通过TelegramClient执行发送消息请求
-      return main.execute(send);
+      return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
 
   }
@@ -57,7 +57,7 @@ public class TelegramClientCan {
       // 通过TelegramClient执行发送消息请求
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage(), e);
     }
 
   }
@@ -66,7 +66,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -74,7 +74,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -92,7 +92,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -100,7 +100,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -108,7 +108,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -116,7 +116,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -124,7 +124,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -132,7 +132,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -141,7 +141,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:" + chatId, e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -149,7 +149,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -157,7 +157,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -165,7 +165,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -173,7 +173,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
     }
   }
 
@@ -181,7 +181,7 @@ public class TelegramClientCan {
     try {
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException("Failed to send message:", e);
+      throw new RuntimeException(e.getMessage(), e);
     }
   }
 
