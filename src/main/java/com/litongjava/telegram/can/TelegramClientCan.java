@@ -29,21 +29,57 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-public class TelegramClientCan {
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+public class TelegramClientCan {
   public static TelegramClient main;
 
-  public static Message execute(SendMessage input) {
+  /**
+   * GetMe 无须进行速率限制
+   * @param input
+   * @return
+   */
+  public static User execute(GetMe input) {
     try {
-      Message message = main.execute(input);
-      return message;
+      return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+      throw new RuntimeException(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * AnswerCallbackQuery 无须进行速率限制
+   * @param input
+   * @return
+   */
+  public static Boolean execute(AnswerCallbackQuery input) {
+    try {
+      RateLimiterManager.getGlobalSemaphore().acquire();
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+    }
+    try {
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+  }
+
+  public static Message execute(SendMessage input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
   }
 
   public static Message execute(SendDocument input) {
+    String chatId = input.getChatId();
     try {
+      RateLimiterManager.acquire(chatId);
       Message message = main.execute(input);
       return message;
     } catch (TelegramApiException e) {
@@ -52,8 +88,9 @@ public class TelegramClientCan {
   }
 
   public static Serializable execute(EditMessageText input) {
+    String chatId = input.getChatId();
     try {
-      // 通过TelegramClient执行发送消息请求
+      RateLimiterManager.acquire(chatId);
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
@@ -61,18 +98,10 @@ public class TelegramClientCan {
 
   }
 
-  public static Boolean execute(AnswerCallbackQuery input) {
-    try {
-      // 通过TelegramClient执行发送消息请求
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
-
-  }
-
   public static ChatInviteLink execute(CreateChatInviteLink input) {
+    String chatId = input.getChatId();
     try {
+      RateLimiterManager.acquire(chatId);
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
@@ -80,7 +109,119 @@ public class TelegramClientCan {
   }
 
   public static Boolean execute(DeleteMessage input) {
+    String chatId = input.getChatId();
     try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Boolean execute(DeleteMessages input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Boolean execute(LeaveChat input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Boolean execute(PromoteChatMember input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Message execute(SendVideo input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Message execute(SendPhoto input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static ChatFullInfo execute(GetChat input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static ChatFullInfo getChat(String chatId) {
+    GetChat input = new GetChat(chatId);
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static MessageId execute(CopyMessage input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Message execute(ForwardMessage input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static ArrayList<MessageId> execute(CopyMessages input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static List<Message> execute(SendMediaGroup input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
@@ -97,101 +238,15 @@ public class TelegramClientCan {
     return TelegramClientCan.execute(deleteMessage);
   }
 
-  public static Boolean execute(DeleteMessages input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
+  public static Long copyMessage(String toChatId, String fromChatId, Integer messageId) {
+    CopyMessage copyMessage = new CopyMessage(toChatId, fromChatId, messageId);
+    Long copiedMessageId = TelegramClientCan.execute(copyMessage).getMessageId();
+    return copiedMessageId;
   }
 
-  public static Boolean execute(LeaveChat input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
+  public static List<MessageId> copyMessages(String toChatId, String fromChatId, List<Integer> messageIds) {
+    CopyMessages copyMessages = new CopyMessages(toChatId, fromChatId, messageIds);
+    List<MessageId> execute = TelegramClientCan.execute(copyMessages);
+    return execute;
   }
-
-  public static Boolean execute(PromoteChatMember input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static Message execute(SendVideo input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static Message execute(SendPhoto input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static ChatFullInfo execute(GetChat input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static ChatFullInfo getChat(String chatId) {
-    GetChat input = new GetChat(chatId);
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static MessageId execute(CopyMessage input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static Message execute(ForwardMessage input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static ArrayList<MessageId> execute(CopyMessages input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static List<Message> execute(SendMediaGroup input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
-    }
-  }
-
-  public static User execute(GetMe input) {
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
-  }
-
 }
