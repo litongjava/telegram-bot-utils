@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.methods.groupadministration.CreateChat
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChat;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.LeaveChat;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.PromoteChatMember;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -34,7 +35,15 @@ public class TelegramClientCan {
 
   public static Message execute(SendMessage input) {
     try {
-      // 通过TelegramClient执行发送消息请求
+      Message message = main.execute(input);
+      return message;
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
+  public static Message execute(SendDocument input) {
+    try {
       Message message = main.execute(input);
       return message;
     } catch (TelegramApiException e) {
