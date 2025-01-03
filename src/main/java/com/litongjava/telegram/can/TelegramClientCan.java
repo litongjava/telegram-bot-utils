@@ -249,4 +249,9 @@ public class TelegramClientCan {
     List<MessageId> execute = TelegramClientCan.execute(copyMessages);
     return execute;
   }
+
+  public static User getMe() {
+    GetMe getMe = new GetMe();
+    return execute(getMe);
+  }
 }
