@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.methods.ForwardMessage;
 import org.telegram.telegrambots.meta.api.methods.GetMe;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.CreateChatInviteLink;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChat;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMember;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.LeaveChat;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.PromoteChatMember;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -25,6 +26,7 @@ import org.telegram.telegrambots.meta.api.objects.ChatInviteLink;
 import org.telegram.telegrambots.meta.api.objects.MessageId;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.chat.ChatFullInfo;
+import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TelegramClientCan {
   public static TelegramClient main;
+  public static Long botId;
 
   /**
    * GetMe 无须进行速率限制
@@ -228,6 +231,16 @@ public class TelegramClientCan {
     }
   }
 
+  public static ChatMember execute(GetChatMember input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.acquire(chatId);
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+    }
+  }
+
   public static Boolean deleteMessage(Long chatId, int messageId) {
     DeleteMessage deleteMessage = new DeleteMessage(chatId.toString(), messageId);
     return TelegramClientCan.execute(deleteMessage);
@@ -250,8 +263,14 @@ public class TelegramClientCan {
     return execute;
   }
 
+  public static ChatMember getChatMemeber(Long chatId, Long userId) {
+    GetChatMember getChatMemeber = GetChatMember.builder().chatId(chatId).userId(userId).build();
+    return execute(getChatMemeber);
+  }
+
   public static User getMe() {
     GetMe getMe = new GetMe();
     return execute(getMe);
   }
+
 }
