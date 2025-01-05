@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RateLimiterManager {
   // 全局速率限制：每秒最多30条消息
-  private static final Semaphore globalSemaphore = new Semaphore(30);
+  public static final Semaphore semaphore30 = new Semaphore(30);
+
+  public static final Semaphore semaphore100 = new Semaphore(100);
 
   // 每个群组的速率限制：每分钟最多20条消息
   private static final ConcurrentMap<String, Semaphore> perChatSemaphores = new ConcurrentHashMap<>();
@@ -22,9 +24,15 @@ public class RateLimiterManager {
   static {
     // 定期恢复全局许可，每秒恢复30个许可
     scheduler.scheduleAtFixedRate(() -> {
-      int permitsToRelease = 30 - globalSemaphore.availablePermits();
+      int permitsToRelease = 30 - semaphore30.availablePermits();
       if (permitsToRelease > 0) {
-        globalSemaphore.release(permitsToRelease);
+        semaphore30.release(permitsToRelease);
+      }
+
+      permitsToRelease = 100 - semaphore100.availablePermits();
+
+      if (permitsToRelease > 0) {
+        semaphore100.release(permitsToRelease);
       }
     }, 1, 1, TimeUnit.SECONDS);
   }
@@ -47,7 +55,7 @@ public class RateLimiterManager {
   // 获取速率许可，如果许可不足，则阻塞直到许可可用
   public static void acquire(String chatId) {
     try {
-      globalSemaphore.acquire();
+      semaphore30.acquire();
     } catch (InterruptedException e) {
       log.error(e.getMessage(), e);
     }
@@ -59,8 +67,16 @@ public class RateLimiterManager {
     }
   }
 
-  public static Semaphore getGlobalSemaphore() {
-    return globalSemaphore;
+  public static Semaphore getSemaphore30() {
+    return semaphore30;
+  }
+
+  public static void acquireOf100() {
+    try {
+      RateLimiterManager.semaphore100.acquire();
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+    }
   }
 
   // 关闭调度器
@@ -75,4 +91,5 @@ public class RateLimiterManager {
       Thread.currentThread().interrupt();
     }
   }
+
 }
