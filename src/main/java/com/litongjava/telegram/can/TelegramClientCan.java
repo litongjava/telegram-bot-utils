@@ -3,6 +3,7 @@ package com.litongjava.telegram.can;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.CopyMessage;
@@ -39,47 +40,70 @@ public class TelegramClientCan {
   public static Long botId;
 
   /**
-   * GetMe 无须进行速率限制
-   * @param input
-   * @return
+   * 异步发送消息类方法使用基于 chatId 的速率限制
+   * @param input The SendMessage object containing message details
+   * @return A CompletableFuture representing the pending result of the send operation
    */
-  public static User execute(GetMe input) {
+  public static CompletableFuture<Message> executeAsync(SendMessage input) {
+    String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
     try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage(), e);
+      return main.executeAsync(input);
+    } catch (TelegramApiException ex) {
+      throw new RuntimeException("Error sending message to chatId: " + chatId + ". " + ex.getMessage(), ex);
     }
   }
 
   /**
-   * AnswerCallbackQuery 使用全局速率限制
-   * @param input
-   * @return
+   * 异步发送消息类方法使用基于 chatId 的速率限制
+   * @param input The SendMessage object containing message details
+   * @return A CompletableFuture representing the pending result of the send operation
    */
-  public static Boolean execute(AnswerCallbackQuery input) {
-    try {
-      RateLimiterManager.semaphore100.acquire();
-    } catch (InterruptedException e) {
-      log.error(e.getMessage(), e);
-      Thread.currentThread().interrupt(); // 恢复中断状态
-    }
-    try {
-      return main.execute(input);
-    } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
+  public static CompletableFuture<Message> executeAsync(SendDocument input) {
+    String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
+    return main.executeAsync(input);
+  }
+
+  /**
+   * 异步发送消息类方法使用基于 chatId 的速率限制
+   * @param input The SendMessage object containing message details
+   * @return A CompletableFuture representing the pending result of the send operation
+   */
+  public static CompletableFuture<Message> executeAsync(SendVideo input) {
+    String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
+    return main.executeAsync(input);
+  }
+
+  /**
+   * 异步发送消息类方法使用基于 chatId 的速率限制
+   * @param input The SendMessage object containing message details
+   * @return A CompletableFuture representing the pending result of the send operation
+   */
+  public static CompletableFuture<Message> executeAsync(SendPhoto input) {
+    String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
+    return main.executeAsync(input);
+  }
+
+  public static CompletableFuture<List<Message>> executeAsync(SendMediaGroup input) {
+    String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
+    return main.executeAsync(input);
   }
 
   /**
    * 发送消息类方法使用基于 chatId 的速率限制
+   * @return 
    */
   public static Message execute(SendMessage input) {
     String chatId = input.getChatId();
+    RateLimiterManager.acquire(chatId);
     try {
-      RateLimiterManager.acquire(chatId);
       return main.execute(input);
     } catch (TelegramApiException e) {
-      throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      throw new RuntimeException("Failed to send message to chatId: " + chatId, e);
     }
   }
 
@@ -120,6 +144,38 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
+    }
+  }
+
+  /**
+   * GetMe 无须进行速率限制
+   * @param input
+   * @return
+   */
+  public static User execute(GetMe input) {
+    try {
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * AnswerCallbackQuery 使用全局速率限制
+   * @param input
+   * @return
+   */
+  public static Boolean execute(AnswerCallbackQuery input) {
+    try {
+      RateLimiterManager.semaphore100.acquire();
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt(); // 恢复中断状态
+    }
+    try {
+      return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage(), e);
     }
   }
 
@@ -165,13 +221,31 @@ public class TelegramClientCan {
   public static Boolean execute(DeleteMessage input) {
     String chatId = input.getChatId();
     try {
-      RateLimiterManager.semaphore100.acquire(); // 全局 API 调用速率限制
+      RateLimiterManager.semaphore100.acquire();
     } catch (InterruptedException e) {
       log.error(e.getMessage(), e);
       Thread.currentThread().interrupt();
     }
     try {
       return main.execute(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + chatId, e);
+    }
+  }
+
+  /**
+   * 删除消息类方法使用全局速率限制
+   */
+  public static CompletableFuture<Boolean> executeAsync(DeleteMessage input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.semaphore100.acquire();
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
+    }
+    try {
+      return main.executeAsync(input);
     } catch (TelegramApiException e) {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
@@ -330,6 +404,11 @@ public class TelegramClientCan {
   public static Boolean deleteMessage(String chatId, int messageId) {
     DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
     return TelegramClientCan.execute(deleteMessage);
+  }
+
+  public static CompletableFuture<Boolean> deleteMessageAsync(Long chatId, int messageId) {
+    DeleteMessage deleteMessage = new DeleteMessage(chatId.toString(), messageId);
+    return TelegramClientCan.executeAsync(deleteMessage);
   }
 
   /**
