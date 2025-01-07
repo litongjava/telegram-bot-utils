@@ -266,6 +266,21 @@ public class TelegramClientCan {
     }
   }
 
+  public static CompletableFuture<Boolean> executeAsync(DeleteMessages input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.semaphore100.acquire(); // 全局 API 调用速率限制
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
+    }
+    try {
+      return main.executeAsync(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + chatId, e);
+    }
+  }
+
   /**
    * 退出聊天使用全局速率限制
    */
@@ -340,6 +355,24 @@ public class TelegramClientCan {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
   }
+  
+  /**
+   * 复制消息使用全局速率限制
+   */
+  public static CompletableFuture<MessageId> executeAsync(CopyMessage input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.semaphore100.acquire(); // 全局 API 调用速率限制
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
+    }
+    try {
+      return main.executeAsync(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + chatId, e);
+    }
+  }
 
   /**
    * 转发消息使用全局速率限制
@@ -376,6 +409,24 @@ public class TelegramClientCan {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
   }
+  
+  /**
+   * 复制多条消息使用全局速率限制
+   */
+  public static CompletableFuture<ArrayList<MessageId>> executeAsync(CopyMessages input) {
+    String chatId = input.getChatId();
+    try {
+      RateLimiterManager.semaphore100.acquire(); // 全局 API 调用速率限制
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
+    }
+    try {
+      return main.executeAsync(input);
+    } catch (TelegramApiException e) {
+      throw new RuntimeException(e.getMessage() + " " + chatId, e);
+    }
+  }
 
   /**
    * 获取聊天成员使用全局速率限制
@@ -408,6 +459,11 @@ public class TelegramClientCan {
 
   public static CompletableFuture<Boolean> deleteMessageAsync(Long chatId, int messageId) {
     DeleteMessage deleteMessage = new DeleteMessage(chatId.toString(), messageId);
+    return TelegramClientCan.executeAsync(deleteMessage);
+  }
+
+  public static CompletableFuture<Boolean> deleteMessageAsync(String chatId, int messageId) {
+    DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
     return TelegramClientCan.executeAsync(deleteMessage);
   }
 
