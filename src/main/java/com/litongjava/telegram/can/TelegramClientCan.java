@@ -338,6 +338,11 @@ public class TelegramClientCan {
     return execute(input);
   }
 
+  public static ChatFullInfo getChat(Long chatId) {
+    GetChat input = new GetChat(chatId.toString());
+    return execute(input);
+  }
+
   /**
    * 复制消息使用全局速率限制
    */
@@ -355,7 +360,7 @@ public class TelegramClientCan {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
   }
-  
+
   /**
    * 复制消息使用全局速率限制
    */
@@ -409,7 +414,7 @@ public class TelegramClientCan {
       throw new RuntimeException(e.getMessage() + " " + chatId, e);
     }
   }
-  
+
   /**
    * 复制多条消息使用全局速率限制
    */

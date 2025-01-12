@@ -1,4 +1,4 @@
-package com.litongjava.telegram.utils;
+package com.litongjava.telegram.fetcher;
 
 import java.io.IOException;
 
@@ -15,16 +15,32 @@ import lombok.extern.slf4j.Slf4j;
 public class TelegramChatInfoFetcher {
   public static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.9999.999 Safari/537.36";
 
-  public static TelegramChatInfo getChatUrl(String url) {
-    // 设置请求头
-
-    Connection connect = Jsoup.connect(url);
-    connect.userAgent(userAgent);
+  public static boolean isValid(String url) {
+    Connection connect = getConnection(url);
     Document doc = null;
     try {
       doc = connect.get();
     } catch (IOException e) {
-      throw new RuntimeException("Failed to get chat info", e);
+      throw new RuntimeException("Failed to get chat info:" + url, e);
+    }
+    Element chatNameElement = doc.selectFirst("div.tgme_page_title");
+    return chatNameElement != null;
+  }
+
+  private static Connection getConnection(String url) {
+    // 设置请求头
+    Connection connect = Jsoup.connect(url);
+    connect.userAgent(userAgent);
+    return connect;
+  }
+
+  public static TelegramChatInfo getChatUrl(String url) {
+    Connection connect = getConnection(url);
+    Document doc = null;
+    try {
+      doc = connect.get();
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to get chat info:" + url, e);
     }
 
     // 提取 chat_name
