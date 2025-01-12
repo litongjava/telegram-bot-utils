@@ -1,6 +1,7 @@
 package com.litongjava.telegram.fetcher;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
