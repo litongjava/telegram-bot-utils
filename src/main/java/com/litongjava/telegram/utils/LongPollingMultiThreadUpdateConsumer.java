@@ -23,7 +23,7 @@ public abstract class LongPollingMultiThreadUpdateConsumer implements LongPollin
 
   @Override
   public void consume(List<Update> updates) {
-    log.info("received updates size:{}", updates);
+    log.info("received updates size:{}", updates.size());
     Map<String, List<Update>> mediaGroupUpdatesMap = new HashMap<>();
 
     for (int i = 0; i < updates.size(); i++) {
