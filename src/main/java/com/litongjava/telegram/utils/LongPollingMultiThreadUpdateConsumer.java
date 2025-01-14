@@ -12,10 +12,18 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import com.litongjava.tio.utils.thread.TioThreadUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public abstract class LongPollingMultiThreadUpdateConsumer implements LongPollingUpdateConsumer {
+
+  public abstract void consumeGroup(List<Update> groupUpdates);
+
+  public abstract void consume(Update update);
 
   @Override
   public void consume(List<Update> updates) {
+    log.info("received updates size:{}", updates);
     Map<String, List<Update>> mediaGroupUpdatesMap = new HashMap<>();
 
     for (int i = 0; i < updates.size(); i++) {
@@ -37,10 +45,6 @@ public abstract class LongPollingMultiThreadUpdateConsumer implements LongPollin
       mediaGroupUpdatesMap.clear();
     }
   }
-
-  public abstract void consumeGroup(List<Update> groupUpdates);
-
-  public abstract void consume(Update update);
 
   /**
    * 判断消息是否来自私聊
