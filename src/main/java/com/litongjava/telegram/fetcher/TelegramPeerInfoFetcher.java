@@ -8,12 +8,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.litongjava.telegram.vo.TelegramChatInfo;
+import com.litongjava.db.OkResult;
+import com.litongjava.telegram.vo.TelegramPeerInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TelegramChatInfoFetcher {
+public class TelegramPeerInfoFetcher {
   public static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.9999.999 Safari/537.36";
 
   public static boolean isValid(String url) {
@@ -35,19 +36,20 @@ public class TelegramChatInfoFetcher {
     return connect;
   }
 
-  public static TelegramChatInfo getChatUrl(String url) {
+  public static OkResult<TelegramPeerInfo> getChatUrl(String url) {
+    OkResult<TelegramPeerInfo> retval = new OkResult<>();
     Connection connect = getConnection(url);
     Document doc = null;
     try {
       doc = connect.get();
     } catch (IOException e) {
-      throw new RuntimeException("Failed to get chat info:" + url, e);
+      return retval.notOk(e);
     }
 
     // 提取 chat_name
     Element chatNameElement = doc.selectFirst("div.tgme_page_title");
     if (chatNameElement == null) {
-      throw new RuntimeException("无法找到 chat_name 元素");
+      return retval.notOk();
     }
     String chatName = chatNameElement.text().trim();
 
@@ -58,7 +60,7 @@ public class TelegramChatInfoFetcher {
     // 提取 channel_text
     Element channelTextElement = doc.selectFirst("div.tgme_page_extra");
     if (channelTextElement == null) {
-      throw new RuntimeException("无法找到 channel_text 元素");
+      return retval.notOk();
     }
     String channelText = channelTextElement.text().trim();
 
@@ -81,8 +83,8 @@ public class TelegramChatInfoFetcher {
       chatType = "private";
       chatCount = 0;
     }
-    TelegramChatInfo chatInfo = new TelegramChatInfo(chatName, chatDescription, chatCount, chatType);
-    return chatInfo;
+    TelegramPeerInfo chatInfo = new TelegramPeerInfo(chatName, chatDescription, chatCount, chatType);
+    return retval.setV(chatInfo);
 
   }
 

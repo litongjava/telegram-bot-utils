@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow;
 
-public class InlineKeyboardUtils {
+public class InlineKeyboardMarkupUtils {
 
   // 创建带有单个按钮的内联键盘
   public static InlineKeyboardMarkup createInlineKeyboard(String buttonText, String url) {
@@ -24,6 +24,17 @@ public class InlineKeyboardUtils {
     InlineKeyboardRow row = new InlineKeyboardRow();
     for (int i = 0; i < buttonTexts.size(); i++) {
       InlineKeyboardButton button = InlineKeyboardButtonUtils.callback(buttonTexts.get(i), buttonTexts.get(i));
+      row.add(button);
+    }
+    rows.add(row);
+    InlineKeyboardMarkup markup = new InlineKeyboardMarkup(rows);
+    return markup;
+  }
+
+  public static InlineKeyboardMarkup create(InlineKeyboardButton... buttons) {
+    List<InlineKeyboardRow> rows = new ArrayList<>();
+    InlineKeyboardRow row = new InlineKeyboardRow();
+    for (InlineKeyboardButton button : buttons) {
       row.add(button);
     }
     rows.add(row);
