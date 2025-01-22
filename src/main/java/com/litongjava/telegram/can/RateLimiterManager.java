@@ -7,13 +7,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public class RateLimiterManager {
   // 全局速率限制：每秒最多30条消息
   public static final Semaphore semaphore30 = new Semaphore(30);
 
+  // callback速率限制 每分钟100条消息
   public static final Semaphore semaphore100 = new Semaphore(100);
 
   // 每个群组的速率限制：每分钟最多20条消息
@@ -56,14 +55,10 @@ public class RateLimiterManager {
   public static void acquire(String chatId) {
     try {
       semaphore30.acquire();
-    } catch (InterruptedException e) {
-      log.error(e.getMessage(), e);
-    }
-    Semaphore chatSemaphore = getPerChatSemaphore(chatId);
-    try {
+      Semaphore chatSemaphore = getPerChatSemaphore(chatId);
       chatSemaphore.acquire();
     } catch (InterruptedException e) {
-      log.error(e.getMessage(), e);
+      throw new RuntimeException(e);
     }
   }
 
@@ -75,7 +70,7 @@ public class RateLimiterManager {
     try {
       RateLimiterManager.semaphore100.acquire();
     } catch (InterruptedException e) {
-      log.error(e.getMessage(), e);
+      throw new RuntimeException(e);
     }
   }
 
