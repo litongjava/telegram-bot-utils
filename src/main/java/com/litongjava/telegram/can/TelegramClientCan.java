@@ -1,7 +1,6 @@
 package com.litongjava.telegram.can;
 
 import java.io.Serializable;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -128,6 +127,9 @@ public class TelegramClientCan {
       return main.executeAsync(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -196,6 +198,9 @@ public class TelegramClientCan {
       return main.executeAsync(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -225,6 +230,9 @@ public class TelegramClientCan {
       return main.executeAsync(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -254,6 +262,9 @@ public class TelegramClientCan {
       return main.executeAsync(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -280,6 +291,9 @@ public class TelegramClientCan {
       return main.executeAsync(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -306,6 +320,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -328,6 +345,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -350,6 +370,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -372,6 +395,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -394,6 +420,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -433,6 +462,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + input.getCallbackQueryId(), e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -462,6 +494,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -491,6 +526,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -516,6 +554,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -538,6 +579,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -562,6 +606,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -587,6 +634,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -612,6 +662,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -637,6 +690,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -662,6 +718,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -687,6 +746,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + chatId, e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
@@ -711,6 +773,9 @@ public class TelegramClientCan {
       return main.execute(input);
     } catch (TelegramApiRequestException e) {
       ResponseParameters parameters = e.getParameters();
+      if (parameters == null) {
+        throw new RuntimeException(e.getMessage() + " " + input.getUserId(), e);
+      }
       Integer retryAfter = parameters.getRetryAfter();
       try {
         // 等待指定的时间（单位：秒）
