@@ -131,6 +131,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -202,6 +203,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -234,6 +236,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -266,6 +269,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -295,6 +299,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -324,6 +329,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -349,6 +355,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -374,6 +381,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -399,6 +407,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -424,6 +433,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -466,6 +476,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + input.getCallbackQueryId(), e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -498,6 +509,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -530,6 +542,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -558,6 +571,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -583,6 +597,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -610,6 +625,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + input.getChatId(), e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -638,6 +654,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -666,6 +683,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -694,6 +712,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -722,6 +741,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -750,6 +770,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + chatId, e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
@@ -777,6 +798,7 @@ public class TelegramClientCan {
         throw new RuntimeException(e.getMessage() + " " + input.getUserId(), e);
       }
       Integer retryAfter = parameters.getRetryAfter();
+      log.info("TelegramApiRequestException sleep + {}", retryAfter);
       try {
         // 等待指定的时间（单位：秒）
         Thread.sleep(retryAfter * 1000L);
