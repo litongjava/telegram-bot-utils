@@ -3,7 +3,6 @@ package com.litongjava.telegram.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.media.InputMedia;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaAnimation;
@@ -11,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.media.InputMediaAudio;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaDocument;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaVideo;
+import org.telegram.telegrambots.meta.api.objects.photo.PhotoSize;
 
 import com.litongjava.telegram.vo.TelegramMedia;
 
