@@ -7,7 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.litongjava.db.OkResult;
+import com.litongjava.result.OkResult;
 import com.litongjava.telegram.vo.TelegramPeerInfo;
 
 import lombok.extern.slf4j.Slf4j;

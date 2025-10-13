@@ -17,7 +17,7 @@ public class InlineKeyboardMarkupUtils {
     return InlineKeyboardMarkup.builder().keyboard(rows).build();
   }
 
-  //Create multiple buttons inline keyboard
+  // Create multiple buttons inline keyboard
   public static InlineKeyboardMarkup createInlineKeyboard(List<String> buttonTexts, List<String> callbackData) {
 
     List<InlineKeyboardRow> rows = new ArrayList<>();
@@ -40,5 +40,9 @@ public class InlineKeyboardMarkupUtils {
     rows.add(row);
     InlineKeyboardMarkup markup = new InlineKeyboardMarkup(rows);
     return markup;
+  }
+
+  public static InlineKeyboardMarkup createRow(InlineKeyboardButton... buttons) {
+    return create(buttons);
   }
 }
